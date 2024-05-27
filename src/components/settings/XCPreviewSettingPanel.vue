@@ -13,13 +13,9 @@
     <div class="content-wrapper">
       
       <div class="left-panel">
+        
         <ul>
-
-          <!-- <li v-for="(option, index) in SETTING_CONFIG_OPTIONS" :key="index" @click="selectItem(index)">
           
-            {{ option.titleLabel }}
-          </li> -->
-
           <div v-for="(option, index) in SETTING_CONFIG_OPTIONS" :key="index" @click="selectItem(index)">
           
             {{ option.titleLabel }}
@@ -91,13 +87,6 @@ watchEffect(() => {
   
   previewSettingPanelVisible.value = props.previewSettingPanelVisible;
 });
-
-// const items = ref([
-//   { title: '选项1', content: 'F**K TMD 设置面板内容1' },
-//   { title: '选项2', content: 'F**K TMD 设置面板内容2' },
-//   { title: '选项3', content: 'F**K TMD 设置面板内容3' },
-//   // 更多选项...
-// ]);
 
 const selectedSection = ref(null);
 const selectedItem1 = ref(null);

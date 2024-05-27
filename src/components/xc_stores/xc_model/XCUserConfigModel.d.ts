@@ -12,7 +12,7 @@ declare namespace XCUserConfigModel {
         currentFont: string;
 
         // 当前字号
-        currentFontSize: string;
+        currentFontSize: number;
 
         // 当前文字
         currentTitle: string;

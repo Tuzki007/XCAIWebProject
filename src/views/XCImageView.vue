@@ -33,19 +33,9 @@ onMounted(() => {
   if (canvasRef.value) {
 
     canvas = new fabric.Canvas(canvasRef.value);
-    // canvas = new fabric.Canvas(canvasRef.value, {
-    //   selection: false  // 禁止选择任何对象
-    // });
-
     loadImageFromUrl(props.imageViewUrl);
 
     // 监听画布点击事件，将所有文字带到最前面
-    // canvas.on('mouse:down', () => {
-    //   console.log('你妈的不好用');
-    //   bringTextToFront();
-    //   img.sendToBack();
-    // });
-      
     canvas.on('mouse:down', (options) => {
       if (options.target) {
         console.log('Clicked on an object');
@@ -54,15 +44,28 @@ onMounted(() => {
         imageToBack(); // 无论点击何处，都确保图片在底层
       }
     });
-      
-
-
   }
 });
 
 // ---------- 文字部分 ----------
 // 要插入的文字
 const insertText = ref(userConfigStore.currentTitle);
+
+// // 字体
+// let textFont = 'Arial'
+
+// // 字号
+// let textFontSize = 20
+
+// // 文字颜色
+// let textColor = '#000000'
+
+const textFont = ref(userConfigStore.currentFont);
+
+const textFontSize = ref(userConfigStore.currentFontSize);
+
+const textColor = ref(userConfigStore.currentColor);
+
 
 // 插入文字Event
 watch(() => userConfigStore.currentTitle, (newValue, oldValue) => {
@@ -75,6 +78,21 @@ watch(() => userConfigStore.currentTitle, (newValue, oldValue) => {
 
     insertTextOnImage()
   }
+});
+
+watch(() => userConfigStore.currentFont, (newValue, oldValue) => {
+
+  textFont.value = newValue;
+});
+
+watch(() => userConfigStore.currentFontSize, (newValue, oldValue) => {
+  
+  textFontSize.value = newValue;
+});
+
+watch(() => userConfigStore.currentColor, (newValue, oldValue) => {
+  
+  textColor.value = newValue;
 });
 
 // 导出图片
@@ -149,13 +167,16 @@ const imageUrl = ref(props.imageViewUrl);
 
 // 插入文字
 const insertTextOnImage = () => {
-
+  
   const textObj = new fabric.Text(insertText.value, {
     left: 100,
     top: 100,
-    fontFamily: 'Arial',
-    fontSize: 20,
-    fill: '#000000',
+    fontFamily: textFont.value,
+    fontSize: textFontSize.value,
+    fill: textColor.value,
+    // fontFamily: 'Arial',
+    // fontSize: 20,
+    // fill: '#000000',
   });
 
   canvas.add(textObj);

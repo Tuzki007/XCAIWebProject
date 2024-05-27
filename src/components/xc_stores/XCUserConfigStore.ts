@@ -5,12 +5,13 @@ export const UserConfigStore = defineStore('userConfig', {
 
     state: (): XCUserConfigModel.UserConfig => ({
         currentMultiple : 1,
-        currentColor : "无颜色",
-        currentFont : "",
-        currentFontSize: "",
+        currentColor : '#000000',
+        currentFont : 'Arial',
+        currentFontSize: 20,
         currentTitle : "",
         currentImage: "",
         insertButtonState: false,
+        exportButtonState: false,
     }),
 
     actions: {

@@ -38,6 +38,17 @@
           </el-select>
         </div>
 
+        <div class="font-size-option-container">
+          <el-select v-model="textColorValue" placeholder="请选择颜色">
+            <el-option
+              v-for="item in textColorOptions"
+              :key="item.value"
+              :label="item.label"
+              :value="item.value">
+            </el-option>
+          </el-select>
+        </div>
+
         <el-button type="success" round @click="insertTextEvent">
             插入文字
         </el-button>
@@ -53,10 +64,7 @@
 
 <script setup>
 import { ref, defineProps, watch } from 'vue';
-// import { UserConfigStore } from '@/xc_s'
 import { UserConfigStore } from '../../../xc_stores/XCUserConfigStore'
-
-// import { UserConfigStore } from '@/stores'
 
 // 用户配置信息(单例)
 const userConfigStore = UserConfigStore()
@@ -91,30 +99,61 @@ const inputViewContent = ref(props.modelValue);
 // 字体选择
 const fontOptions = ref([
   { value: 'Arial', label: 'Arial' },
+  { value: 'Brush Script MT', label: 'Brush Script MT' },
+  { value: 'Lucida Handwriting', label: 'Lucida Handwriting' },
+  { value: 'Comic Sans MS', label: 'Comic Sans MS' },
   { value: 'Verdana', label: 'Verdana' },
-  { value: 'Times New Roman', label: 'Times New Roman' },
-  { value: 'Courier New', label: 'Courier New' },
-  { value: 'Georgia', label: 'Georgia' }
+  { value: 'Georgia', label: 'Georgia' },
+  { value: 'Garamond', label: 'Garamond' },
+  { value: 'Helvetica', label: 'Helvetica' },
+  { value: 'Roboto', label: 'Roboto' },
 ]);
 
 // 字号
 const fontSizeOptions = ref([
-  { value: 'size6', label: '6' },
-  { value: 'size8', label: '8' },
-  { value: 'size10', label: '10' },
-  { value: 'size12', label: '12' },
-  { value: 'size16', label: '16' },
-  { value: 'size18', label: '18' },
-  { value: 'size20', label: '20' },
-  { value: 'size22', label: '22' },
-  { value: 'size24', label: '24' },
 
+  { value: 6, label: 'size6' },
+  { value: 8, label: 'size8' },
+  { value: 10, label: 'size10' },
+  { value: 12, label: 'size12' },
+  { value: 14, label: 'size14' },
+  { value: 16, label: 'size16' },
+  { value: 18, label: 'size18' },
+  { value: 20, label: 'size20' },
+  { value: 22, label: 'size22' },
+  { value: 24, label: 'size24' },
+  { value: 26, label: 'size26' },
+  { value: 28, label: 'size28' },
+  { value: 30, label: 'size30' },
+  { value: 32, label: 'size32' },
+  { value: 34, label: 'size34' },
+  { value: 36, label: 'size36' },
+  { value: 38, label: 'size38' },
+]);
+
+// 字号
+const textColorOptions = ref([
+
+  { value: '#FFFFFF', label: 'White' },
+  { value: '#000000', label: 'Black' },
+  { value: '#6A5ACD', label: 'SlateBlue' },
+  { value: '#8470FF', label: 'LightSlateBlue' },
+  { value: '#00BFFF', label: 'DeepSkyBlue' },
+  { value: '#87CEFA', label: 'LightSkyBlue' },
+  { value: '#54FF9F', label: 'SeaGreen1' },
+  { value: '#00FF7F', label: 'SpringGreen1' },
+  { value: '#FFF68F', label: 'Khaki1' },
+  { value: '#FFFF00', label: 'Yellow1' },
+  { value: '#FF6A6A', label: 'IndianRed1' },
+  { value: '#FF3030', label: 'Firebrick1' },
 ]);
 
 // 字体结果
 const fontValue = ref('');
 // 字号结果
 const fontSizeValue = ref('');
+// 字号结果
+const textColorValue = ref('');
 
 // 插入文字按钮事件
 const insertTextEvent = () => {
@@ -122,14 +161,17 @@ const insertTextEvent = () => {
   // 按钮点击
   userConfigStore.insertButtonState = true
 
-  // 设置文案
-  userConfigStore.currentTitle = inputViewContent.value
-
   // 设置字体
-  userConfigStore.currentFont = fontValue
+  userConfigStore.currentFont = fontValue.value
 
   // 设置字号
-  userConfigStore.currentFontSize = fontSizeValue
+  userConfigStore.currentFontSize = fontSizeValue.value
+
+  // 设置颜色
+  userConfigStore.currentColor = textColorValue.value
+
+  // 设置文案
+  userConfigStore.currentTitle = inputViewContent.value
 }
 
 // 导出按钮事件
